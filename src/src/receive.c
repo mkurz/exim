@@ -502,7 +502,8 @@ bmi_current_optin = NULL;
 #endif
 recipients_list[recipients_count].orcpt = NULL;
 recipients_list[recipients_count].dsn_flags = 0;
-recipients_list[recipients_count++].errors_to = NULL;
+recipients_list[recipients_count].errors_to = NULL;
+recipients_list[recipients_count++].ignore_error = FALSE;
 }
 
 

@@ -875,6 +875,7 @@ for (recipients_count = 0; recipients_count < rcount; recipients_count++)
   recipients_list[recipients_count].address = string_copy(big_buffer);
   recipients_list[recipients_count].pno = pno;
   recipients_list[recipients_count].errors_to = errors_to;
+  recipients_list[recipients_count].ignore_error = FALSE;
   recipients_list[recipients_count].orcpt = orcpt;
   recipients_list[recipients_count].dsn_flags = dsn_flags;
   }

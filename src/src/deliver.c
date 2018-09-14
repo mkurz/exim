@@ -6163,6 +6163,7 @@ if (process_recipients != RECIP_IGNORE)
       recipient_item *r = recipients_list + i;
       address_item *new = deliver_make_addr(r->address, FALSE);
       new->prop.errors_address = r->errors_to;
+      new->prop.ignore_error = r->ignore_error;
 #ifdef SUPPORT_I18N
       if ((new->prop.utf8_msg = message_smtputf8))
 	{
@@ -8072,6 +8073,7 @@ else if (addr_defer != (address_item *)(+1))
           otaddr->address, otaddr->parent->address);
         receive_add_recipient(otaddr->address, t);
         recipients_list[recipients_count-1].errors_to = otaddr->prop.errors_address;
+        recipients_list[recipients_count-1].ignore_error = otaddr->prop.ignore_error;
         tree_add_nonrecipient(otaddr->parent->address);
         update_spool = TRUE;
         }

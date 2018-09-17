@@ -1,0 +1,4 @@
+# Sieve filter
+
+require ["vacation"];
+vacation "I am gone.  Not here.";

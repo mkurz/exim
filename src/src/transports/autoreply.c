@@ -562,6 +562,11 @@ if (file)
 
 /* Make a subprocess to send the message */
 
+// HERE IS THE MAIN QUESTION:
+// is it possible to pass "additional SPOOL_OUT" data to the receiving exim process below?
+// so that in in spool_out.c (via receive.c) we could write out an ignore_errors flag.. THAT IS THE MAIN FUNCTION
+// as workaround next week i could try to parse a header and then set that flag and see what happens...
+
 pid = child_open_exim(&fd);
 
 /* Creation of child failed; defer this delivery. */

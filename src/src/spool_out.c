@@ -286,7 +286,7 @@ for (i = 0; i < recipients_count; i++)
 
   DEBUG(D_deliver) debug_printf("DSN: Flags :%d\n", r->dsn_flags);
 
-  if (r->pno < 0 && r->errors_to == NULL && r->dsn_flags == 0)
+  if (r->pno < 0 && r->errors_to == NULL && !r->ignore_error && r->dsn_flags == 0)
     fprintf(fp, "%s\n", r->address);
   else
     {
@@ -295,13 +295,13 @@ for (i = 0; i < recipients_count; i++)
     adding new values upfront and add flag 0x02 */
     uschar * orcpt = r->orcpt ? r->orcpt : US"";
 
-    fprintf(fp, "%s %s %d,%d %s %d,%d#3\n", r->address, orcpt, Ustrlen(orcpt),
-      r->dsn_flags, errors_to, Ustrlen(errors_to), r->pno);
+    fprintf(fp, "%s %s %d,%d %s %d,%d,%d#3\n", r->address, orcpt, Ustrlen(orcpt),
+      r->dsn_flags, errors_to, Ustrlen(errors_to), r->ignore_error, r->pno);
     }
 
     DEBUG(D_deliver) debug_printf("DSN: **** SPOOL_OUT - "
-      "address: |%s| errorsto: |%s| orcpt: |%s| dsn_flags: %d\n",
-      r->address, r->errors_to, r->orcpt, r->dsn_flags);
+      "address: |%s| errorsto: |%s| ignore_error: |%d| orcpt: |%s| dsn_flags: %d\n",
+      r->address, r->errors_to, r->ignore_error, r->orcpt, r->dsn_flags);
   }
 
 /* Put a blank line before the headers */

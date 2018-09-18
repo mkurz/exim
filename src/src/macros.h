@@ -656,6 +656,7 @@ return values from header_checkname(). */
 #define htype_reply_to      'R'
 #define htype_received      'P'   /* P for Postmark */
 #define htype_sender        'S'
+#define htype_ignore_error  'i'
 #define htype_old           '*'   /* Replaced header */
 
 #define htype_date          'd'

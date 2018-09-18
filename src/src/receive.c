@@ -2250,6 +2250,8 @@ if (filter_test != FTEST_NONE && header_list->next == NULL)
 /* Scan the headers to identify them. Some are merely marked for later
 processing; some are dealt with here. */
 
+BOOL ignore_error = FALSE;
+
 for (h = header_list->next; h; h = h->next)
   {
   BOOL is_resent = strncmpic(h->text, US"resent-", 7) == 0;
@@ -2257,6 +2259,10 @@ for (h = header_list->next; h; h = h->next)
 
   switch (header_checkname(h, is_resent))
     {
+    case htype_ignore_error:
+      ignore_error = TRUE;
+      break;
+
     case htype_bcc:
       h->type = htype_bcc;        /* Both Bcc: and Resent-Bcc: */
       break;
@@ -2563,6 +2569,13 @@ if (extract_recip)
       }   /* For appropriate header line */
     }     /* For each header line */
 
+  }
+
+if(ignore_error)
+  for (i = 0; i < recipients_count; i++)
+  {
+    recipient_item *r = recipients_list + i;
+    r->ignore_error = TRUE;
   }
 
 /* Now build the unique message id. This has changed several times over the

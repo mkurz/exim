@@ -374,6 +374,9 @@ else
     }
   }
 
+if(addr->prop.ignore_error)
+  headers = string_sprintf("%s\nignore-error: 1", headers);
+
 /* If the never_mail option is set, we have to scan all the recipients and
 remove those that match. */
 

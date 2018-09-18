@@ -743,6 +743,7 @@ for (recipients_count = 0; recipients_count < rcount; recipients_count++)
   {
   int nn;
   int pno = -1;
+  int ignore_error = 0;
   int dsn_flags = 0;
   uschar *orcpt = NULL;
   uschar *errors_to = NULL;
@@ -784,7 +785,7 @@ for (recipients_count = 0; recipients_count < rcount; recipients_count++)
     The type bits indicate what the contents of the data are.
 
     Bit 01 indicates that, reading from right to left, the data
-      ends with <errors_to address><space><len>,<pno> where pno is
+      ends with <errors_to address><space><len>,<ignore_error>,<pno> where pno is
       the parent number for one_time addresses, and len is the length
       of the errors_to address (zero meaning none).
 
@@ -831,7 +832,7 @@ for (recipients_count = 0; recipients_count < rcount; recipients_count++)
       {
       int len;
       while (isdigit(*(--p)) || *p == ',' || *p == '-');
-      (void)sscanf(CS p+1, "%d,%d", &len, &pno);
+      (void)sscanf(CS p+1, "%d,%d,%d", &len, &ignore_error, &pno);
       *p = 0;
       if (len > 0)
         {
@@ -875,7 +876,7 @@ for (recipients_count = 0; recipients_count < rcount; recipients_count++)
   recipients_list[recipients_count].address = string_copy(big_buffer);
   recipients_list[recipients_count].pno = pno;
   recipients_list[recipients_count].errors_to = errors_to;
-  recipients_list[recipients_count].ignore_error = FALSE;
+  recipients_list[recipients_count].ignore_error = ignore_error;
   recipients_list[recipients_count].orcpt = orcpt;
   recipients_list[recipients_count].dsn_flags = dsn_flags;
   }

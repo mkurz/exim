@@ -948,6 +948,7 @@ header_name header_names[] = {
   { US"delivery-date", 13,	FALSE,		htype_delivery_date },
   { US"envelope-to",   11,	FALSE,		htype_envelope_to },
   { US"from",           4,	TRUE,		htype_from },
+  { US"ignore-error",   12,	TRUE,		htype_ignore_error },
   { US"message-id",    10,	TRUE,		htype_id },
   { US"received",       8,	FALSE,		htype_received },
   { US"reply-to",       8,	FALSE,		htype_reply_to },
